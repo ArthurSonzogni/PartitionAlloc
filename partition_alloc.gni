@@ -623,5 +623,10 @@ declare_args() {
 # lose us coverage of that particular span in that exact moment. This is
 # not a big deal, and is probably preferable to sticking
 # `base::unchecked` on all those spans (shutting them out entirely).
+#
+# Windows and Linux trybots show mysterious failures (timeouts?) in
+# `headless_shell_wpt_tests`. We're hopeful we can run this down.
+_is_supported_checked_span_platform =
+    has_64_bit_pointers && (is_debug || !(is_win || is_linux))
 use_checked_span = !(is_asan || is_ubsan || is_tsan) && use_partition_alloc &&
-                   has_64_bit_pointers && is_debug
+                   _is_supported_checked_span_platform
