@@ -492,7 +492,7 @@ class alignas(internal::kPartitionCachelineSize)
   template <AllocFlags flags = AllocFlags::kNone>
   PA_NOINLINE PA_MALLOC_FN void* AllocInternalForTesting(
       size_t requested_size,
-      size_t slot_span_alignment,
+      size_t alignment,
       const char* type_name);  // IN-TEST
 
   template <AllocFlags alloc_flags = AllocFlags::kNone,
@@ -839,7 +839,7 @@ class alignas(internal::kPartitionCachelineSize)
   // guarantee the higher-order alignment.
   template <AllocFlags flags>
   PA_ALWAYS_INLINE PA_MALLOC_FN void* AllocInternal(size_t requested_size,
-                                                    size_t slot_span_alignment,
+                                                    size_t alignment,
                                                     const char* type_name);
 
   // Same as |AllocInternal()|, but don't handle allocation hooks.
