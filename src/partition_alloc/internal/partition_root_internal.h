@@ -686,6 +686,7 @@ PA_ALWAYS_INLINE void PartitionRoot::FreeNoHooksImmediateInternal(
 #endif
     if constexpr (ContainsFlags(flags, FreeFlags::kWithTypeIdHint)) {
       Zap(slot_start, slot_span, hint.type_id);
+      RecordLeakSizePerTypeId(hint.type_id, size_details.slot_size);
     }
     intended_leak_size_.fetch_add(size_details.slot_size);
     return;  // Leak
